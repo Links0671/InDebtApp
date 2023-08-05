@@ -55,12 +55,6 @@ public class Debt {
 
     @Override
     public String toString() {
-        return "Debt{" +
-                "entity='" + entity + '\'' +
-                ", amount=" + amount +
-                ", context='" + context + '\'' +
-                ", creationDate=" + creationDate +
-                ", isPaid=" + isPaid +
-                '}';
+        return String.format("paid=%b | entity=%s | context=%s | amount=%d$", isPaid, entity, context, amount);
     }
 }
