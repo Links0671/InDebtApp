@@ -18,7 +18,7 @@ public class DebtRepository {
         }
     }
 
-    public List<Debt> getDebtList(){
+    public ArrayList<Debt> getDebtList(){
         return new ArrayList<Debt>(debtList);
     }
 

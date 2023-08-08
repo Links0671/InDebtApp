@@ -1,5 +1,7 @@
 package com.example.indebtapp.domain;
 
+import androidx.annotation.NonNull;
+
 import java.util.Date;
 
 public class Debt {
@@ -51,10 +53,5 @@ public class Debt {
 
     public void setPaid(boolean paid) {
         isPaid = paid;
-    }
-
-    @Override
-    public String toString() {
-        return String.format("paid=%b | entity=%s | context=%s | amount=%d$", isPaid, entity, context, amount);
     }
 }
