@@ -20,35 +20,39 @@ import java.util.List;
 
 public class DebtsListAdapter extends ArrayAdapter<Debt> {
 
-    public DebtsListAdapter(@NonNull Context context, ArrayList<Debt> arrayList) {
-        super(context, R.layout.list_item_debt, arrayList);
+    private Context context;
+    private ArrayList<Debt> array;
+
+    public DebtsListAdapter(@NonNull Context context, int resource,ArrayList<Debt> arrayList) {
+        super(context, resource, arrayList);
+        this.context = context;
+        this.array = new ArrayList<>(arrayList);
     }
 
     @NonNull
     @Override
-    public View getView(int position, @Nullable View view, @NonNull ViewGroup parent){
-        View currentItemView = view;
-
-        if (currentItemView == null) {
-            currentItemView = LayoutInflater.from(getContext()).inflate(R.layout.list_item_debt, parent, false);
+    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent){
+        if (convertView == null) {
+            LayoutInflater i = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = i.inflate(R.layout.list_item_debt, parent, false);
         }
+        if(array.size() > 0){
+            Debt debt = getItem(position);
 
-        Debt debt = getItem(position);
+            CheckBox paid = convertView.findViewById(R.id.paidCheckBox);
+            assert debt != null;
+            paid.setActivated(debt.isPaid());
 
-        CheckBox paid = currentItemView.findViewById(R.id.paidCheckBox);
-        assert debt != null;
-        paid.setActivated(debt.isPaid());
+            TextView entity = convertView.findViewById(R.id.entity);
+            entity.setText(debt.getEntity());
 
-        TextView entity = currentItemView.findViewById(R.id.entity);
-        entity.setText(debt.getEntity());
+            TextView context = convertView.findViewById(R.id.context);
+            context.setText(debt.getContext());
 
-        TextView context = currentItemView.findViewById(R.id.context);
-        context.setText(debt.getContext());
-
-        TextView amount = currentItemView.findViewById(R.id.amount);
-        String text = debt.getAmount() + "€";
-        amount.setText(text);
-
-        return currentItemView;
+            TextView amount = convertView.findViewById(R.id.amount);
+            String text = debt.getAmount() + "€";
+            amount.setText(text);
+        }
+        return convertView;
     }
 }

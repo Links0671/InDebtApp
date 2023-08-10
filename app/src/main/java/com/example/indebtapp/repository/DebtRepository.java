@@ -42,4 +42,44 @@ public class DebtRepository {
             }
         }
     }
+
+    public ArrayList<Debt> filterByEntity(ArrayList<Debt> list, String entity){
+        ArrayList<Debt> filteredList = new ArrayList<Debt>();
+        for (Debt debt: list) {
+            if (debt.getEntity().equals(entity)) {
+                filteredList.add(debt);
+            }
+        }
+        return filteredList;
+    }
+
+    public ArrayList<Debt> filterByBalancePositivity(ArrayList<Debt> list, int balancePositivity){
+        ArrayList<Debt> filteredList = new ArrayList<Debt>();
+        for (Debt debt: list) {
+            if (debt.getAmount() * balancePositivity >= 0) {
+                filteredList.add(debt);
+            }
+        }
+        return filteredList;
+    }
+
+    public ArrayList<Debt> filterByStatus(ArrayList<Debt> list, Boolean status){
+        ArrayList<Debt> filteredList = new ArrayList<Debt>();
+        for (Debt debt: list) {
+            if (debt.isPaid() == status) {
+                filteredList.add(debt);
+            }
+        }
+        return filteredList;
+    }
+
+    public ArrayList<Debt> searchByContext(ArrayList<Debt> list, String context){
+        ArrayList<Debt> filteredList = new ArrayList<Debt>();
+        for (Debt debt: list) {
+            if (debt.getContext().contains(context)) {
+                filteredList.add(debt);
+            }
+        }
+        return filteredList;
+    }
 }

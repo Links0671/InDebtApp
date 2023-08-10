@@ -42,14 +42,14 @@ public class DebtsFragment extends Fragment {
         ArrayList<Debt> debtArrayList = debtRepository.getDebtList();
 
         assert main != null;
-        DebtsListAdapter debtsListAdapter = new DebtsListAdapter(main, debtArrayList);
+        DebtsListAdapter debtsListAdapter = new DebtsListAdapter(main, R.layout.list_item_debt,debtArrayList);
 
         final TextView textView = binding.text;
         debtsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
 
         ListView listView = main.findViewById(R.id.debtsList);
 
-        // listView.setAdapter(debtsListAdapter);
+        listView.setAdapter(debtsListAdapter);
 
         return view;
     }

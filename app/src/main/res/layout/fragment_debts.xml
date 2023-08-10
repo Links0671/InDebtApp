@@ -19,14 +19,11 @@
             android:textSize="26sp"
             android:textStyle="bold"/>
 
-        <ListView
-            android:id="@+id/debtsList"
+        <include
+            layout="@layout/debts_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:divider="@color/black"
-            android:dividerHeight="1.0sp"
-            android:scrollbars="vertical"
-            tools:listitem="@layout/list_item_debt" />
+            android:layout_height="wrap_content" />
+
 
     </LinearLayout>
 
