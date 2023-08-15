@@ -1,7 +1,5 @@
 package com.example.indebtapp.repository;
 
-import android.util.Pair;
-
 import com.example.indebtapp.domain.Debt;
 
 import java.util.*;
@@ -22,6 +20,10 @@ public class DebtRepository {
         return new ArrayList<Debt>(debtList);
     }
 
+    /**
+     * calculates the sum of amounts
+     * @return i wander what it returns
+     */
     public double calculateBalance(){
         int balance = 0;
         for (Debt debt : debtList) {
@@ -30,15 +32,21 @@ public class DebtRepository {
         return balance;
     }
 
+    /**
+     * puts the unpaid first
+     * @param debtList a debt list
+     */
     public void unpaidFirst(List<Debt> debtList){
         Debt temp;
-        for (int i = debtList.size() - 1; i > 1; i--) {
-            if (!debtList.get(i).isPaid()) {
-                for (int j = i; j > 1; j--) {
+        int count = 0;
+        for (int i = debtList.size() - 1; i > 0; i--){
+            if (debtList.get(i).isPaid()) {
+                for (int j = i; j < debtList.size()-1-count; j++) {
                     temp = debtList.get(j);
-                    debtList.set(j, debtList.get(j-1));
-                    debtList.set(j - 1, temp);
+                    debtList.set(j, debtList.get(j + 1));
+                    debtList.set(j + 1, temp);
                 }
+                count++;
             }
         }
     }

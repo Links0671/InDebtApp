@@ -18,7 +18,9 @@
         <CheckBox
             android:id="@+id/paidCheckBox"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:focusable="false"
+            android:focusableInTouchMode="false"/>
 
         <TextView
             android:id="@+id/entity"

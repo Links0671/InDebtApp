@@ -18,6 +18,9 @@ import com.example.indebtapp.R;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This is the class that adapts the debt list into the List View
+ */
 public class DebtsListAdapter extends ArrayAdapter<Debt> {
 
     public DebtsListAdapter(@NonNull Context context, ArrayList<Debt> arrayList) {
@@ -39,7 +42,7 @@ public class DebtsListAdapter extends ArrayAdapter<Debt> {
         TextView context = convertView.findViewById(R.id.context);
         TextView amount = convertView.findViewById(R.id.amount);
 
-        paid.setActivated(debt.isPaid());
+        paid.setChecked(debt.isPaid());
         entity.setText(debt.getEntity());
         context.setText(debt.getContext());
         String text = debt.getAmount() + "€";

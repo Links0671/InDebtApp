@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -49,10 +50,20 @@ public class DebtsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        /**
+         * Debt List Stuff
+         */
         ArrayList<Debt> debtArrayList = controller.getDebtList();
         DebtsListAdapter debtsListAdapter = new DebtsListAdapter(getActivity(), debtArrayList);
         debtListView = (ListView) view.findViewById(R.id.debtsList);
         debtListView.setAdapter(debtsListAdapter);
+        debtListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Toast.makeText(view.getContext(), "You clicked debt n:" + debtArrayList.get(i).getContext(), Toast.LENGTH_SHORT).show();
+
+            }
+        });
     }
 
     @Override
