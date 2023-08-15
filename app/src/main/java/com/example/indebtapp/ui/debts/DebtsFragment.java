@@ -9,11 +9,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.indebtapp.MainActivity;
 import com.example.indebtapp.R;
+import com.example.indebtapp.application.DebtsFragmentsController;
 import com.example.indebtapp.databinding.FragmentDebtsBinding;
 import com.example.indebtapp.domain.Debt;
 import com.example.indebtapp.domain.DebtsListAdapter;
@@ -27,31 +29,30 @@ import java.util.List;
 
 public class DebtsFragment extends Fragment {
     private FragmentDebtsBinding binding;
+    private ListView debtListView;
+    private final DebtsFragmentsController controller = new DebtsFragmentsController();
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         MainActivity main = (MainActivity) this.getActivity();
-        DebtsViewModel debtsViewModel =
-                new ViewModelProvider(this).get(DebtsViewModel.class);
+        DebtsViewModel debtsViewModel = new ViewModelProvider(this).get(DebtsViewModel.class);
 
         binding = FragmentDebtsBinding.inflate(inflater, container, false);
-        View view = inflater.inflate(R.layout.fragment_debts, container, false);
-
-        Repositories repositories = Repositories.getInstance();
-        DebtRepository debtRepository = repositories.getDebtRepository();
-        ArrayList<Debt> debtArrayList = debtRepository.getDebtList();
-
-        assert main != null;
-        DebtsListAdapter debtsListAdapter = new DebtsListAdapter(main, R.layout.list_item_debt,debtArrayList);
+        View root = binding.getRoot();
 
         final TextView textView = binding.text;
         debtsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
 
-        ListView listView = main.findViewById(R.id.debtsList);
+        return root;
+    }
 
-        listView.setAdapter(debtsListAdapter);
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-        return view;
+        ArrayList<Debt> debtArrayList = controller.getDebtList();
+        DebtsListAdapter debtsListAdapter = new DebtsListAdapter(getActivity(), debtArrayList);
+        debtListView = (ListView) view.findViewById(R.id.debtsList);
+        debtListView.setAdapter(debtsListAdapter);
     }
 
     @Override

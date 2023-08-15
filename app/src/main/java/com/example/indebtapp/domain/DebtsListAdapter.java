@@ -20,39 +20,30 @@ import java.util.List;
 
 public class DebtsListAdapter extends ArrayAdapter<Debt> {
 
-    private Context context;
-    private ArrayList<Debt> array;
-
-    public DebtsListAdapter(@NonNull Context context, int resource,ArrayList<Debt> arrayList) {
-        super(context, resource, arrayList);
-        this.context = context;
-        this.array = new ArrayList<>(arrayList);
+    public DebtsListAdapter(@NonNull Context context, ArrayList<Debt> arrayList) {
+        super(context, R.layout.list_item_debt, arrayList);
     }
 
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent){
-        if (convertView == null) {
-            LayoutInflater i = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = i.inflate(R.layout.list_item_debt, parent, false);
+        Debt debt = getItem(position);
+
+        if (convertView == null){
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_item_debt, parent, false);
         }
-        if(array.size() > 0){
-            Debt debt = getItem(position);
 
-            CheckBox paid = convertView.findViewById(R.id.paidCheckBox);
-            assert debt != null;
-            paid.setActivated(debt.isPaid());
+        assert debt != null;
+        CheckBox paid = convertView.findViewById(R.id.paidCheckBox);
+        TextView entity = convertView.findViewById(R.id.entity);
+        TextView context = convertView.findViewById(R.id.context);
+        TextView amount = convertView.findViewById(R.id.amount);
 
-            TextView entity = convertView.findViewById(R.id.entity);
-            entity.setText(debt.getEntity());
-
-            TextView context = convertView.findViewById(R.id.context);
-            context.setText(debt.getContext());
-
-            TextView amount = convertView.findViewById(R.id.amount);
-            String text = debt.getAmount() + "€";
-            amount.setText(text);
-        }
+        paid.setActivated(debt.isPaid());
+        entity.setText(debt.getEntity());
+        context.setText(debt.getContext());
+        String text = debt.getAmount() + "€";
+        amount.setText(text);
         return convertView;
     }
 }
