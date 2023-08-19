@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Toast;
@@ -28,6 +29,7 @@ public class DebtsFragment extends Fragment {
     private ListView debtListView;
     private final DebtsFragmentsController controller = new DebtsFragmentsController();
     private ArrayList<Debt> debtArrayList = new ArrayList<>();
+    private ArrayList<Debt> displayList = new ArrayList<>();
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         MainActivity main = (MainActivity) this.getActivity();
@@ -45,15 +47,78 @@ public class DebtsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // Debt List Stuff
+        setUpDebtList(view);
+        setUpFilterButtons(view);
+    }
+
+    private void setUpDebtList(View view) {
         debtArrayList = controller.getDebtList();
-        DebtsListAdapter debtsListAdapter = new DebtsListAdapter(getActivity(), debtArrayList);
+        displayList = debtArrayList;
+        DebtsListAdapter debtsListAdapter = new DebtsListAdapter(getActivity(), displayList);
         debtListView = (ListView) view.findViewById(R.id.debtsList);
         debtListView.setAdapter(debtsListAdapter);
         debtListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(view.getContext(), "You clicked debt n:" + debtArrayList.get(i).getContext(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(view.getContext(), "You clicked debt n:" + displayList.get(i).getContext(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void setUpFilterButtons(View view) {
+        Button clearFilterButton = (Button) view.findViewById(R.id.clearFilterButton);
+        clearFilterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(view.getContext(), "Filter Cleared", Toast.LENGTH_SHORT).show();
+                displayList = debtArrayList;
+                DebtsListAdapter debtsListAdapter = new DebtsListAdapter(getActivity(), displayList);
+                debtListView.setAdapter(debtsListAdapter);
+            }
+        });
+        Button entityFilterButton = (Button) view.findViewById(R.id.entityFilterButton);
+        entityFilterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ArrayList<Debt> filteredList = controller.filterByEntity(displayList, "Mom");
+                DebtsListAdapter debtsListAdapter = new DebtsListAdapter(getActivity(), filteredList);
+                debtListView.setAdapter(debtsListAdapter);
+            }
+        });
+        Button paidFilterButton = (Button) view.findViewById(R.id.paidFilterButton);
+        paidFilterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ArrayList<Debt> filteredList = controller.filterByPaid(displayList);
+                DebtsListAdapter debtsListAdapter = new DebtsListAdapter(getActivity(), filteredList);
+                debtListView.setAdapter(debtsListAdapter);
+            }
+        });
+        Button unPaidFilterButton = (Button) view.findViewById(R.id.unPaidFilterButton);
+        unPaidFilterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ArrayList<Debt> filteredList = controller.filterByUnPaid(displayList);
+                DebtsListAdapter debtsListAdapter = new DebtsListAdapter(getActivity(), filteredList);
+                debtListView.setAdapter(debtsListAdapter);
+            }
+        });
+        Button positiveFilterButton = (Button) view.findViewById(R.id.positiveFilterButton);
+        positiveFilterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ArrayList<Debt> filteredList = controller.filterByPositiveAmount(displayList);
+                DebtsListAdapter debtsListAdapter = new DebtsListAdapter(getActivity(), filteredList);
+                debtListView.setAdapter(debtsListAdapter);
+            }
+        });
+        Button negativeFilterButton = (Button) view.findViewById(R.id.negativeFilterButton);
+        negativeFilterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ArrayList<Debt> filteredList = controller.filterByNegativeAmount(displayList);
+                DebtsListAdapter debtsListAdapter = new DebtsListAdapter(getActivity(), filteredList);
+                debtListView.setAdapter(debtsListAdapter);
             }
         });
     }
@@ -63,12 +128,15 @@ public class DebtsFragment extends Fragment {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
+                ArrayList<Debt> filteredList = controller.searchByContext(displayList, s);
+                DebtsListAdapter debtsListAdapter = new DebtsListAdapter(getActivity(), filteredList);
+                debtListView.setAdapter(debtsListAdapter);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String s) {
-                ArrayList<Debt> filteredList = controller.searchByContext(debtArrayList, s);
+                ArrayList<Debt> filteredList = controller.searchByContext(displayList, s);
                 DebtsListAdapter debtsListAdapter = new DebtsListAdapter(getActivity(), filteredList);
                 debtListView.setAdapter(debtsListAdapter);
                 return false;

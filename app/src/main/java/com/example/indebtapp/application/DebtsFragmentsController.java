@@ -26,4 +26,24 @@ public class DebtsFragmentsController {
     public ArrayList<Debt> searchByContext(ArrayList<Debt> list, String context) {
         return DebtRepository.searchByContext(list, context);
     }
+
+    public ArrayList<Debt> filterByEntity(ArrayList<Debt> list, String entity) {
+        return DebtRepository.filterByEntity(list, entity);
+    }
+
+    public ArrayList<Debt> filterByPaid(ArrayList<Debt> list) {
+        return DebtRepository.filterByStatus(list, true);
+    }
+
+    public ArrayList<Debt> filterByUnPaid(ArrayList<Debt> list) {
+        return DebtRepository.filterByStatus(list, false);
+    }
+
+    public ArrayList<Debt> filterByPositiveAmount(ArrayList<Debt> list) {
+        return DebtRepository.filterByAmountPositivity(list, 1);
+    }
+
+    public ArrayList<Debt> filterByNegativeAmount(ArrayList<Debt> list) {
+        return DebtRepository.filterByAmountPositivity(list, -1);
+    }
 }

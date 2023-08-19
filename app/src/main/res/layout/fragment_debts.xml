@@ -12,8 +12,80 @@
         android:layout_height="wrap_content"
         android:id="@+id/debtsSearchBar"
         android:iconifiedByDefault="false"
-        android:queryHint="Search with Context"
-        />
+        android:queryHint="Search with Context" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:text="Clear"
+            android:id="@+id/clearFilterButton"
+            android:backgroundTint="@color/white"
+            android:textColor="@color/black"
+            style="?android:attr/borderlessButtonStyle"/>
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:text="Paid"
+            android:id="@+id/paidFilterButton"
+            android:backgroundTint="@color/white"
+            android:textColor="@color/black"
+            style="?android:attr/borderlessButtonStyle"/>
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:text="Negative Amount"
+            android:id="@+id/negativeFilterButton"
+            android:backgroundTint="@color/white"
+            android:textColor="@color/black"
+            style="?android:attr/borderlessButtonStyle"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:text="Entity"
+            android:id="@+id/entityFilterButton"
+            android:backgroundTint="@color/white"
+            android:textColor="@color/black"
+            style="?android:attr/borderlessButtonStyle"/>
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:text="Not Paid"
+            android:id="@+id/unPaidFilterButton"
+            android:backgroundTint="@color/white"
+            android:textColor="@color/black"
+            style="?android:attr/borderlessButtonStyle"/>
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:text="Positive Amount"
+            android:id="@+id/positiveFilterButton"
+            android:backgroundTint="@color/white"
+            android:textColor="@color/black"
+            style="?android:attr/borderlessButtonStyle"/>
+    </LinearLayout>
+
 
     <ListView
         android:id="@+id/debtsList"

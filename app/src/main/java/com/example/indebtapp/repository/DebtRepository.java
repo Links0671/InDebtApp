@@ -61,7 +61,7 @@ public class DebtRepository {
         return filteredList;
     }
 
-    public static ArrayList<Debt> filterByBalancePositivity(ArrayList<Debt> list, int balancePositivity){
+    public static ArrayList<Debt> filterByAmountPositivity(ArrayList<Debt> list, int balancePositivity){
         ArrayList<Debt> filteredList = new ArrayList<Debt>();
         for (Debt debt: list) {
             if (debt.getAmount() * balancePositivity >= 0) {
