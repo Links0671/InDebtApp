@@ -19,7 +19,11 @@ public class DebtsFragmentsController {
         DebtRepository debtRepository = repositories.getDebtRepository();
         ArrayList<Debt> debtslist = debtRepository.getDebtList();
         debtslist.sort(new SortByDate());
-        debtRepository.unpaidFirst(debtslist);
+        DebtRepository.unpaidFirst(debtslist);
         return debtslist;
+    }
+
+    public ArrayList<Debt> searchByContext(ArrayList<Debt> list, String context) {
+        return DebtRepository.searchByContext(list, context);
     }
 }

@@ -36,7 +36,7 @@ public class DebtRepository {
      * puts the unpaid first
      * @param debtList a debt list
      */
-    public void unpaidFirst(List<Debt> debtList){
+    public static void unpaidFirst(List<Debt> debtList){
         Debt temp;
         int count = 0;
         for (int i = debtList.size() - 1; i > 0; i--){
@@ -51,7 +51,7 @@ public class DebtRepository {
         }
     }
 
-    public ArrayList<Debt> filterByEntity(ArrayList<Debt> list, String entity){
+    public static ArrayList<Debt> filterByEntity(ArrayList<Debt> list, String entity){
         ArrayList<Debt> filteredList = new ArrayList<Debt>();
         for (Debt debt: list) {
             if (debt.getEntity().equals(entity)) {
@@ -61,7 +61,7 @@ public class DebtRepository {
         return filteredList;
     }
 
-    public ArrayList<Debt> filterByBalancePositivity(ArrayList<Debt> list, int balancePositivity){
+    public static ArrayList<Debt> filterByBalancePositivity(ArrayList<Debt> list, int balancePositivity){
         ArrayList<Debt> filteredList = new ArrayList<Debt>();
         for (Debt debt: list) {
             if (debt.getAmount() * balancePositivity >= 0) {
@@ -71,7 +71,7 @@ public class DebtRepository {
         return filteredList;
     }
 
-    public ArrayList<Debt> filterByStatus(ArrayList<Debt> list, Boolean status){
+    public static ArrayList<Debt> filterByStatus(ArrayList<Debt> list, Boolean status){
         ArrayList<Debt> filteredList = new ArrayList<Debt>();
         for (Debt debt: list) {
             if (debt.isPaid() == status) {
@@ -81,10 +81,10 @@ public class DebtRepository {
         return filteredList;
     }
 
-    public ArrayList<Debt> searchByContext(ArrayList<Debt> list, String context){
+    public static ArrayList<Debt> searchByContext(ArrayList<Debt> list, String context){
         ArrayList<Debt> filteredList = new ArrayList<Debt>();
         for (Debt debt: list) {
-            if (debt.getContext().contains(context)) {
+            if (debt.getContext().toLowerCase().contains(context.toLowerCase())) {
                 filteredList.add(debt);
             }
         }

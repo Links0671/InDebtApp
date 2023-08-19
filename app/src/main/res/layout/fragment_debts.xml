@@ -1,30 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ui.debts.DebtsFragment">
+    tools:context="ui.debts.DebtsFragment"
+    android:orientation="vertical">
 
-    <LinearLayout
+    <SearchView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/debtsSearchBar"
+        android:iconifiedByDefault="false"
+        android:queryHint="Search with Context"
+        />
+
+    <ListView
+        android:id="@+id/debtsList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:divider="@color/black"
+        android:dividerHeight="1.0sp"
+        android:scrollbars="vertical"
+        tools:listitem="@layout/list_item_debt" />
 
-        <TextView
-            android:id="@+id/text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Debts:"
-            android:textSize="26sp"
-            android:textStyle="bold"/>
-
-        <include
-            layout="@layout/debts_list"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-
-    </LinearLayout>
-
-</RelativeLayout>
+</LinearLayout>

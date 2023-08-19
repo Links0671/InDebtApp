@@ -20,11 +20,11 @@ public class Bootstrap implements Runnable {
     private void addDebts() {
         Repositories repositories = Repositories.getInstance();
         DebtRepository debtRepository = repositories.getDebtRepository();
-        debtRepository.addDebt(new Debt("Kingpin", -1.2, "1"));
-        debtRepository.addDebt(new Debt("Mafia", 5, "5", true));
-        debtRepository.addDebt(new Debt("Neighbour", -10, "2"));
-        debtRepository.addDebt(new Debt("Kingpin", 6, "3"));
-        debtRepository.addDebt(new Debt("Boss", 50, "6", true));
-        debtRepository.addDebt(new Debt("Mom", -750, "4"));
+        debtRepository.addDebt(new Debt("Kingpin", -1.2, "Coffe"));
+        debtRepository.addDebt(new Debt("Mafia", 5, "Food", true));
+        debtRepository.addDebt(new Debt("Neighbour", -10, "Food and Groceries"));
+        debtRepository.addDebt(new Debt("Kingpin", 6, "Killed the spider"));
+        debtRepository.addDebt(new Debt("Boss", 50, "Employee of the month", true));
+        debtRepository.addDebt(new Debt("Mom", -750, "Rent"));
     }
 }
