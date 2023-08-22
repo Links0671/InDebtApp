@@ -51,16 +51,6 @@ public class DebtRepository {
         }
     }
 
-    public static ArrayList<Debt> filterByEntity(ArrayList<Debt> list, String entity){
-        ArrayList<Debt> filteredList = new ArrayList<Debt>();
-        for (Debt debt: list) {
-            if (debt.getEntity().equals(entity)) {
-                filteredList.add(debt);
-            }
-        }
-        return filteredList;
-    }
-
     public static ArrayList<Debt> filterByAmountPositivity(ArrayList<Debt> list, int balancePositivity){
         ArrayList<Debt> filteredList = new ArrayList<Debt>();
         for (Debt debt: list) {
@@ -81,10 +71,10 @@ public class DebtRepository {
         return filteredList;
     }
 
-    public static ArrayList<Debt> searchByContext(ArrayList<Debt> list, String context){
+    public static ArrayList<Debt> searchByEntityOrContext(ArrayList<Debt> list, String context){
         ArrayList<Debt> filteredList = new ArrayList<Debt>();
         for (Debt debt: list) {
-            if (debt.getContext().toLowerCase().contains(context.toLowerCase())) {
+            if (debt.getContext().toLowerCase().contains(context.toLowerCase()) || debt.getEntity().toLowerCase().contains(context.toLowerCase())) {
                 filteredList.add(debt);
             }
         }

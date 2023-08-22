@@ -1,7 +1,6 @@
 package com.example.indebtapp.application;
 
 import com.example.indebtapp.domain.Debt;
-import com.example.indebtapp.domain.SortByAmount;
 import com.example.indebtapp.domain.SortByDate;
 import com.example.indebtapp.repository.DebtRepository;
 import com.example.indebtapp.repository.Repositories;
@@ -24,11 +23,7 @@ public class DebtsFragmentsController {
     }
 
     public ArrayList<Debt> searchByContext(ArrayList<Debt> list, String context) {
-        return DebtRepository.searchByContext(list, context);
-    }
-
-    public ArrayList<Debt> filterByEntity(ArrayList<Debt> list, String entity) {
-        return DebtRepository.filterByEntity(list, entity);
+        return DebtRepository.searchByEntityOrContext(list, context);
     }
 
     public ArrayList<Debt> filterByPaid(ArrayList<Debt> list) {

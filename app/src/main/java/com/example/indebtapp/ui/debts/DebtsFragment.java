@@ -66,22 +66,13 @@ public class DebtsFragment extends Fragment {
     }
 
     private void setUpFilterButtons(View view) {
-        Button clearFilterButton = (Button) view.findViewById(R.id.clearFilterButton);
+        Button clearFilterButton = (Button) view.findViewById(R.id.allFilterButton);
         clearFilterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(view.getContext(), "Filter Cleared", Toast.LENGTH_SHORT).show();
                 displayList = debtArrayList;
                 DebtsListAdapter debtsListAdapter = new DebtsListAdapter(getActivity(), displayList);
-                debtListView.setAdapter(debtsListAdapter);
-            }
-        });
-        Button entityFilterButton = (Button) view.findViewById(R.id.entityFilterButton);
-        entityFilterButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ArrayList<Debt> filteredList = controller.filterByEntity(displayList, "Mom");
-                DebtsListAdapter debtsListAdapter = new DebtsListAdapter(getActivity(), filteredList);
                 debtListView.setAdapter(debtsListAdapter);
             }
         });
