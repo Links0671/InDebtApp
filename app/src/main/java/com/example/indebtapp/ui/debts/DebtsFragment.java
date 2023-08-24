@@ -70,7 +70,6 @@ public class DebtsFragment extends Fragment {
         clearFilterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(view.getContext(), "Filter Cleared", Toast.LENGTH_SHORT).show();
                 displayList = debtArrayList;
                 DebtsListAdapter debtsListAdapter = new DebtsListAdapter(getActivity(), displayList);
                 debtListView.setAdapter(debtsListAdapter);
