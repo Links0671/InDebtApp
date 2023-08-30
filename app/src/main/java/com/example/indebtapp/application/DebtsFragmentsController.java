@@ -41,4 +41,8 @@ public class DebtsFragmentsController {
     public ArrayList<Debt> filterByNegativeAmount(ArrayList<Debt> list) {
         return DebtRepository.filterByAmountPositivity(list, -1);
     }
+
+    public double getTotalBalance(ArrayList<Debt> list){
+        return DebtRepository.calculateBalance(list);
+    }
 }

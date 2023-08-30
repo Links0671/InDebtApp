@@ -24,9 +24,9 @@ public class DebtRepository {
      * calculates the sum of amounts
      * @return i wander what it returns
      */
-    public double calculateBalance(){
-        int balance = 0;
-        for (Debt debt : debtList) {
+    public static double calculateBalance(ArrayList<Debt> list){
+        double balance = 0;
+        for (Debt debt : list) {
             balance += debt.getAmount();
         }
         return balance;

@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -27,6 +28,7 @@ import java.util.ArrayList;
 public class DebtsFragment extends Fragment {
     private FragmentDebtsBinding binding;
     private ListView debtListView;
+    private TextView balanceCounter;
     private final DebtsFragmentsController controller = new DebtsFragmentsController();
     private ArrayList<Debt> debtArrayList = new ArrayList<>();
     private ArrayList<Debt> displayList = new ArrayList<>();
@@ -47,15 +49,21 @@ public class DebtsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        initializeComponents(view);
         setUpDebtList(view);
         setUpFilterButtons(view);
+        updateBalanceCounter(displayList);
+    }
+
+    private void initializeComponents(View view) {
+        debtListView = (ListView) view.findViewById(R.id.debtsList);
+        balanceCounter = (TextView) view.findViewById(R.id.balanceCounter);
     }
 
     private void setUpDebtList(View view) {
         debtArrayList = controller.getDebtList();
         displayList = debtArrayList;
         DebtsListAdapter debtsListAdapter = new DebtsListAdapter(getActivity(), displayList);
-        debtListView = (ListView) view.findViewById(R.id.debtsList);
         debtListView.setAdapter(debtsListAdapter);
         debtListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -73,6 +81,7 @@ public class DebtsFragment extends Fragment {
                 displayList = debtArrayList;
                 DebtsListAdapter debtsListAdapter = new DebtsListAdapter(getActivity(), displayList);
                 debtListView.setAdapter(debtsListAdapter);
+                updateBalanceCounter(displayList);
             }
         });
         Button paidFilterButton = (Button) view.findViewById(R.id.paidFilterButton);
@@ -82,6 +91,7 @@ public class DebtsFragment extends Fragment {
                 ArrayList<Debt> filteredList = controller.filterByPaid(displayList);
                 DebtsListAdapter debtsListAdapter = new DebtsListAdapter(getActivity(), filteredList);
                 debtListView.setAdapter(debtsListAdapter);
+                updateBalanceCounter(filteredList);
             }
         });
         Button unPaidFilterButton = (Button) view.findViewById(R.id.unPaidFilterButton);
@@ -91,6 +101,7 @@ public class DebtsFragment extends Fragment {
                 ArrayList<Debt> filteredList = controller.filterByUnPaid(displayList);
                 DebtsListAdapter debtsListAdapter = new DebtsListAdapter(getActivity(), filteredList);
                 debtListView.setAdapter(debtsListAdapter);
+                updateBalanceCounter(filteredList);
             }
         });
         Button positiveFilterButton = (Button) view.findViewById(R.id.positiveFilterButton);
@@ -100,6 +111,7 @@ public class DebtsFragment extends Fragment {
                 ArrayList<Debt> filteredList = controller.filterByPositiveAmount(displayList);
                 DebtsListAdapter debtsListAdapter = new DebtsListAdapter(getActivity(), filteredList);
                 debtListView.setAdapter(debtsListAdapter);
+                updateBalanceCounter(filteredList);
             }
         });
         Button negativeFilterButton = (Button) view.findViewById(R.id.negativeFilterButton);
@@ -109,6 +121,7 @@ public class DebtsFragment extends Fragment {
                 ArrayList<Debt> filteredList = controller.filterByNegativeAmount(displayList);
                 DebtsListAdapter debtsListAdapter = new DebtsListAdapter(getActivity(), filteredList);
                 debtListView.setAdapter(debtsListAdapter);
+                updateBalanceCounter(filteredList);
             }
         });
     }
@@ -121,6 +134,7 @@ public class DebtsFragment extends Fragment {
                 ArrayList<Debt> filteredList = controller.searchByContext(displayList, s);
                 DebtsListAdapter debtsListAdapter = new DebtsListAdapter(getActivity(), filteredList);
                 debtListView.setAdapter(debtsListAdapter);
+                updateBalanceCounter(displayList);
                 return false;
             }
 
@@ -129,9 +143,14 @@ public class DebtsFragment extends Fragment {
                 ArrayList<Debt> filteredList = controller.searchByContext(displayList, s);
                 DebtsListAdapter debtsListAdapter = new DebtsListAdapter(getActivity(), filteredList);
                 debtListView.setAdapter(debtsListAdapter);
+                updateBalanceCounter(debtArrayList);
                 return false;
             }
         });
+    }
+
+    private void updateBalanceCounter(ArrayList<Debt> list){
+        balanceCounter.setText(String.valueOf(controller.getTotalBalance(list)));
     }
 
     @Override
